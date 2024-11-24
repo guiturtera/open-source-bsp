@@ -1,0 +1,8 @@
+{
+    "httpMethod": "GET",
+    "queryStringParameters": {
+        "hub.verify_token": "string_aleatoria_verify_token",
+        "hub.mode": "subscribe",
+        "hub.challenge": "aa"
+    }
+}

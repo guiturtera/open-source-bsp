@@ -1,0 +1,34 @@
+{
+    "httpMethod": "POST",
+    "body": {
+        "object": "whatsapp_business_account",
+        "entry": [{
+            "id": "426699610536883",
+            "changes": [{
+                "value": {
+                    "messaging_product": "whatsapp",
+                    "metadata": {
+                        "display_phone_number": "15551746090",
+                        "phone_number_id": "426040430603281"
+                    },
+                    "contacts": [{
+                        "profile": {
+                            "name": "Guilherme"
+                        },
+                        "wa_id": "5511987410155"
+                    }],
+                    "messages": [{
+                        "from": "5511987410155",
+                        "id": "wamid.HBgNNTUxMTk4NzQxMDE1NRUCABIYFDNBMzVDMjFGQjI1QjA3RTcwQTVCAA==",
+                        "timestamp": "1732486283",
+                        "text": {
+                            "body": "Oi"
+                        },
+                        "type": "text"
+                    }]
+                },
+                "field": "messages"
+            }]
+        }]
+    }
+}

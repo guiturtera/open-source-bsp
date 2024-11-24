@@ -1,0 +1,66 @@
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
+
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  whatsapp-broker
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform:
+- AWS::Serverless-2016-10-31
+
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+Resources:
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  # This is a Lambda function config associated with the source code: get-all-items.js
+  getWhatsappBrokerwebhook:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-webhook.getWebhook
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: Handler of postWebhook messages from whatsapp
+      Environment:
+        Variables:
+          WEBHOOK_VERIFY_TOKEN: string_aleatoria_verify_token
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+
+
+  postWhatsappBrokerwebhook:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/post-webhook.postWebhook
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: Handler of postWebhook messages from whatsapp
+      Environment:
+        Variables:
+          GRAPH_API_TOKEN: EAANnvJ2fFXIBO5Maaw0EfT1jS2ECgHIuCVF4EVedZB4VqnC3pxO6Mh1DwpaXsZAP9iRlm3O82yXkMFc0fKTnHU3n1dMcN8H0KMDvwLxDvXC1cKToBKA1DQdsGGDcqiSP5ZAdxOPDkZCvw6TfX1E8bU1ABh7hLEuzdObNJJ13dNcXQIXkuj2XWgyPNPrzDZCLnAHSv7ZBVWJK5vAJGtUZBhxQZB3cPNkZD
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: POST
+
+Outputs:
+  WebEndpoint:
+    Description: "Whatsapp broker to handle META Webhooks"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
